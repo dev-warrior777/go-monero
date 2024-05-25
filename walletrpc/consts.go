@@ -3,7 +3,7 @@ package walletrpc
 import (
 	"fmt"
 
-	"gitlab.com/moneropay/go-monero/pkg/json2"
+	"github.com/dev-warrior777/go-monero/pkg/json2"
 )
 
 // H is a helper map shortcut.

@@ -1,3 +1,3 @@
-module gitlab.com/moneropay/go-monero
+module github.com/dev-warrior777/go-monero
 
-go 1.16
+go 1.21.10
