@@ -1,0 +1,12 @@
+#dev
+.vscode/
+curltest.sh
+is_daemons.sh
+kill_daemons.sh
+stagenet_wallet_details.txt
+monero-wallet-cli.log
+monero-wallet-rpc.log
+
+
+stagenet/
+
