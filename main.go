@@ -32,19 +32,19 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/dev-warrior777/go-monero/daemonrpc"
-	"github.com/dev-warrior777/go-monero/walletrpc"
+	"github.com/dev-warrior777/go-monero/old_rpc"
+	"github.com/dev-warrior777/go-monero/rpc"
 )
 
 func main() {
 	ctx := context.Background()
 
-	daemon := daemonrpc.New(daemonrpc.Config{
+	daemon := old_rpc.New(old_rpc.Config{
 		Address: "http://127.0.0.1:38081",
 	})
 
-	gtxs_req := daemonrpc.GetTransactionsRequest{
-		TxsHashes:    []daemonrpc.TxHash{"c8cc2347935ca416ea8b3d0c83061f367be0536948563c694cb272958e02ab71"},
+	gtxs_req := old_rpc.GetTransactionsRequest{
+		TxsHashes:    []old_rpc.TxHash{"c8cc2347935ca416ea8b3d0c83061f367be0536948563c694cb272958e02ab71"},
 		DecodeAsJson: false,
 	}
 	gtxs_resp, err := daemon.GetTransactions(ctx, &gtxs_req)
@@ -53,7 +53,7 @@ func main() {
 	}
 	fmt.Println("status:", gtxs_resp.Status)
 
-	srt_req := daemonrpc.SendRawTransactionRequest{
+	srt_req := old_rpc.SendRawTransactionRequest{
 		TxAsHex:    gtxs_resp.TxsAsHex[0],
 		DoNotRelay: false,
 	}
@@ -69,14 +69,27 @@ func main() {
 	}
 	fmt.Println("status:", gtp_resp.Status)
 
-	wallet_client := walletrpc.New(walletrpc.Config{
-		Address: "http://127.0.0.1:38383/json_rpc",
+	client := rpc.New(rpc.Config{
+		Address: "http://127.0.0.1:38081/json_rpc",
 		Client:  &http.Client{ /*default no auth HTTP client*/ },
 	})
-	// wallet_resp, err := wallet_client.GetBalance(ctx, &walletrpc.GetBalanceRequest{})
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// fmt.Println("Total balance:", walletrpc.XMRToDecimal(wallet_resp.Balance))
-	// fmt.Println("Unlocked balance:", walletrpc.XMRToDecimal(wallet_resp.UnlockedBalance))
+
+	dgi_resp, err := client.DaemonGetInfo(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("status:", dgi_resp.Status)
+
+	drg_req := rpc.DemonRegtestGenerateRequest{
+		AmountOfBlocks: 1,
+		WalletAddress:  "55ps81tfB2JTdbHXYVJuZVeYCYagjLjBPgHtH6DRHXZ3eMLLtE7FECTMmGzJmFVqPz75KsVcVdGMfej8grDiEx5KDmU7NBA",
+		StartingNonce:  0,
+	}
+	drg_resp, err := client.DaemonRegtestGenerate(ctx, &drg_req)
+	if err != nil {
+		// if not regtest daemon will say:
+		// "json2.Error {Code: -13, Message: "Regtest required when generating blocks"}"
+		log.Fatal(err)
+	}
+	fmt.Println("status:", drg_resp.Status)
 }
