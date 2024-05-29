@@ -12,6 +12,8 @@ therefore causing bugs.
 
 ## Example
 
+Mainnet:
+
 ```sh
 # monero-wallet-rpc --detach \
 #  --rpc-bind-port 18083 \
@@ -38,7 +40,7 @@ func main() {
     client := walletrpc.New(walletrpc.Config{
         Address: "http://127.0.0.1:18083/json_rpc",
         Client: &http.Client{
-            Transport: httpdigest.New("kernal", "s3cure"), // Remove if no auth.
+            Transport: httpdigest.New("kernal", "s3cure"), // Remove if no auth; use default round-tripper
         },
     })
     resp, err := client.GetBalance(context.Background(), &walletrpc.GetBalanceRequest{})

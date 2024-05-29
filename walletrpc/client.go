@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/dev-warrior777/go-monero/pkg/json2"
+	"github.com/dev-warrior777/go-monero/walletrpc/json2"
 )
 
 // New returns a new monero-wallet-rpc client.
@@ -53,9 +53,8 @@ func (c *Client) Do(ctx context.Context, method string, in, out interface{}) err
 	}
 	defer resp.Body.Close()
 
-	// in theory this is only done to catch
-	// any monero related errors if
-	// we are not expecting any data back
+	// this is done to catch any monero related errors if we are not expecting any
+	// data back
 	if out == nil {
 		v := &json2.EmptyResponse{}
 		return json2.DecodeClientResponse(resp.Body, v)

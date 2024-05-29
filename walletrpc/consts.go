@@ -3,12 +3,14 @@ package walletrpc
 import (
 	"fmt"
 
-	"github.com/dev-warrior777/go-monero/pkg/json2"
+	"github.com/dev-warrior777/go-monero/walletrpc/json2"
 )
 
 // H is a helper map shortcut.
 type H map[string]interface{}
 
+// TODO: review latest monero code, and get daemon rpc messages also
+//
 // ErrorCode is a monero-wallet-rpc error code.
 // Copied from https://github.com/monero-project/monero/blob/release-v0.11.0.0/src/wallet/wallet_rpc_server_error_codes.h
 type ErrorCode int

@@ -1,12 +1,18 @@
-// Example
+//
+// Example:
+// =======
+//
+// daemon stagenet: detached
+//
 // monero-wallet-rpc --detach \
-// 	--rpc-bind-port 18083 \
+//  --stagenet \
+// 	--rpc-bind-port 38081 \
 // 	--wallet-file /home/moneropay/wallet \
 // 	--password s3cure \
 // 	--daemon-login kernal:s3cure \
 // 	--rpc-login kernal:s3cure
-
-// stagenet: un-detached
+//
+// wallet server stagenet: un-detached
 //
 // monero-wallet-rpc \
 // --stagenet \
@@ -26,21 +32,51 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/dev-warrior777/go-monero/daemonrpc"
 	"github.com/dev-warrior777/go-monero/walletrpc"
 )
 
 func main() {
-	// username: kernal, password: s3cure
-	client := walletrpc.New(walletrpc.Config{
-		Address: "http://127.0.0.1:38383/json_rpc",
-		Client:  &http.Client{
-			// Transport: httpdigest.New("kernal", "s3cure"), // Remove if no auth.
-		},
+	ctx := context.Background()
+
+	daemon := daemonrpc.New(daemonrpc.Config{
+		Address: "http://127.0.0.1:38081",
 	})
-	resp, err := client.GetBalance(context.Background(), &walletrpc.GetBalanceRequest{})
+
+	gtxs_req := daemonrpc.GetTransactionsRequest{
+		TxsHashes:    []daemonrpc.TxHash{"c8cc2347935ca416ea8b3d0c83061f367be0536948563c694cb272958e02ab71"},
+		DecodeAsJson: false,
+	}
+	gtxs_resp, err := daemon.GetTransactions(ctx, &gtxs_req)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Total balance:", walletrpc.XMRToDecimal(resp.Balance))
-	fmt.Println("Unlocked balance:", walletrpc.XMRToDecimal(resp.UnlockedBalance))
+	fmt.Println("status:", gtxs_resp.Status)
+
+	srt_req := daemonrpc.SendRawTransactionRequest{
+		TxAsHex:    gtxs_resp.TxsAsHex[0],
+		DoNotRelay: false,
+	}
+	srt_resp, err := daemon.SendRawTransaction(ctx, &srt_req)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("status:", srt_resp.Status)
+
+	gtp_resp, err := daemon.GetTransactionPool(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("status:", gtp_resp.Status)
+
+	wallet_client := walletrpc.New(walletrpc.Config{
+		Address: "http://127.0.0.1:38383/json_rpc",
+		Client:  &http.Client{ /*default no auth HTTP client*/ },
+	})
+	// wallet_resp, err := wallet_client.GetBalance(ctx, &walletrpc.GetBalanceRequest{})
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Println("Total balance:", walletrpc.XMRToDecimal(wallet_resp.Balance))
+	// fmt.Println("Unlocked balance:", walletrpc.XMRToDecimal(wallet_resp.UnlockedBalance))
 }
