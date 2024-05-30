@@ -14,7 +14,7 @@ therefore causing bugs.
 
 Thanks to the developers of MoneroPay!
 
-This fork is based on the above and is for integration into dex. It updates by introducing daemon rpc functions with both the older RPC's (see the REAME.md in `old_rpc` directory) and the newer JSON 2.0 RPC calls (see the README.md in `rpc` directory)
+This fork is based on the above and is for integration into dex. It updates by introducing daemon rpc functions with both the older RPC's (see the README.md in `old_rpc` directory) and the newer JSON 2.0 RPC calls (see the README.md in `rpc` directory)
 
 Tested on `stagenet` and `regtest`
 
