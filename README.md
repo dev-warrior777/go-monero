@@ -18,7 +18,6 @@ This fork is based on the above and is for integration into dex. It updates by i
 
 Tested on `stagenet` and `regtest`
 
-
 ## MoneroPay Example
 
 Mainnet:

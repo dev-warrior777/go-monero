@@ -36,16 +36,17 @@ import (
 	"github.com/dev-warrior777/go-monero/rpc"
 )
 
+// Regtest
 func main() {
 	ctx := context.Background()
 
 	daemon := old_rpc.New(old_rpc.Config{
-		Address: "http://127.0.0.1:38081",
+		Address: "http://127.0.0.1:18081",
 	})
 
 	gtxs_req := old_rpc.GetTransactionsRequest{
-		TxsHashes:    []old_rpc.TxHash{"c8cc2347935ca416ea8b3d0c83061f367be0536948563c694cb272958e02ab71"},
-		DecodeAsJson: false,
+		TxsHashes:    []old_rpc.TxHash{"73ed80efe6763276486232aa984dac69a6f74b17dd21ea917434237642bdb484"},
+		DecodeAsJson: true,
 	}
 	gtxs_resp, err := daemon.GetTransactions(ctx, &gtxs_req)
 	if err != nil {
@@ -69,8 +70,34 @@ func main() {
 	}
 	fmt.Println("status:", gtp_resp.Status)
 
+	wallet := rpc.New(rpc.Config{
+		Address: "http://127.0.0.1:28284/json_rpc", // charlie
+		Client:  &http.Client{ /*default no auth HTTP client*/ },
+	})
+
+	// charlie sends 0.000333 XMR -> fred
+	tr_req := rpc.TransferRequest{
+		Destinations: []rpc.Destination{
+			{
+				Amount:  333000000,
+				Address: "494aSG3QY1C4PJf7YyDjFc9n2uAuARWSoGQ3hrgPWXtEjgGrYDn2iUw8WJP5Dzm4GuMkY332N9WfbaKfu5tWM3wk8ZeSEC5",
+			},
+		},
+		AccountIndex:   0,
+		SubaddrIndices: []uint64{0},
+		Priority:       0,
+		RingSize:       11,
+		UnlockTime:     20,
+		GetTxKey:       true,
+	}
+	tr_resp, err := wallet.Transfer(ctx, &tr_req)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("tx_hash:", tr_resp.TxHash)
+
 	client := rpc.New(rpc.Config{
-		Address: "http://127.0.0.1:38081/json_rpc",
+		Address: "http://127.0.0.1:18081/json_rpc",
 		Client:  &http.Client{ /*default no auth HTTP client*/ },
 	})
 
@@ -82,7 +109,7 @@ func main() {
 
 	drg_req := rpc.DemonRegtestGenerateRequest{
 		AmountOfBlocks: 1,
-		WalletAddress:  "55ps81tfB2JTdbHXYVJuZVeYCYagjLjBPgHtH6DRHXZ3eMLLtE7FECTMmGzJmFVqPz75KsVcVdGMfej8grDiEx5KDmU7NBA",
+		WalletAddress:  "494aSG3QY1C4PJf7YyDjFc9n2uAuARWSoGQ3hrgPWXtEjgGrYDn2iUw8WJP5Dzm4GuMkY332N9WfbaKfu5tWM3wk8ZeSEC5",
 		StartingNonce:  0,
 	}
 	drg_resp, err := client.DaemonRegtestGenerate(ctx, &drg_req)
