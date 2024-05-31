@@ -1,10 +1,15 @@
 package old_rpc
 
-import "context"
+import (
+	"bytes"
+	"context"
+	"encoding/json"
+	"fmt"
+)
 
 type SpentKeyImage struct {
 	IdHash   string   `json:"id_hash"`
-	TxHashes []TxHash `json:"tx_hashes"`
+	TxHashes []string `json:"tx_hashes"`
 }
 
 type Transaction struct {
@@ -23,6 +28,11 @@ type Transaction struct {
 	Relayed            bool   `json:"relayed"`
 	TxBlob             string `json:"tx_blob"`
 	TxJson             string `json:"tx_json"`
+	// Additional tx details:
+	// - sent as a raw json string in the 'tx_json' field which we need to further
+	//   decode into JsonDetails
+	// - Discards all the 'rctsig_prunable' info as probably not useful for us.
+	JsonDetails JsonDetails
 }
 
 type GetTransactionPoolResponse struct {
@@ -33,9 +43,37 @@ type GetTransactionPoolResponse struct {
 	Untrusted      bool            `json:"untrusted"`
 }
 
-// Connect to the Monero daemon.
+// Get transaction pool (mempool) info.
 func (c *Client) GetTransactionPool(ctx context.Context) (*GetTransactionPoolResponse, error) {
 	resp := &GetTransactionPoolResponse{}
 	err := c.Do(ctx, "get_transaction_pool", nil, resp)
+	if err != nil {
+		return nil, err
+	}
+	if resp.Transactions != nil {
+		// transaction pool not empty
+		err = decodeTxJson(resp)
+		if err != nil {
+			return nil, err
+		}
+	}
 	return resp, err
+}
+
+// Parse 'tx_json' (which has been returned as raw json) into Transaction.Jsondetails
+func decodeTxJson(resp *GetTransactionPoolResponse) error {
+	for i, tx := range resp.Transactions {
+		txJson := tx.TxJson
+		if txJson == "" {
+			return fmt.Errorf("json decode error: no TxJson info for tx #%d", i)
+		}
+		r := bytes.NewBufferString(txJson)
+		dec := json.NewDecoder(r)
+		err := dec.Decode(&tx.JsonDetails)
+		if err != nil {
+			return err
+		}
+		resp.Transactions[i].JsonDetails = tx.JsonDetails
+	}
+	return nil
 }
