@@ -9,14 +9,14 @@ package old_rpc
 type OutPubKey string
 
 type EcdhInfo struct {
-	// Diffie-Helman elliptic curves' structures
+	// Diffie-Hellman elliptic curves' structures
 	Amount string `json:"amount"`
 	Mask   string `json:"mask"`
 }
 
 type RctSignatures struct {
-	// List of signatures used in the ring signatures truct - to hide the true origin
-	// of the transaction inputs.
+	// List of signatures used in the ring of signatures
+	// - to hide the true origin of the transaction inputs.
 	Type   uint64      `json:"type"`
 	TxnFee uint64      `json:"txnFee"`
 	Ecdh   []EcdhInfo  `json:"ecdhInfo"`
@@ -31,6 +31,7 @@ type TaggedKey struct {
 type Target struct {
 	TaggedKey TaggedKey `json:"tagged_key"`
 }
+
 type Output struct {
 	AmountCoinbase uint64 `json:"amount"`
 	Target         Target `json:"target"`

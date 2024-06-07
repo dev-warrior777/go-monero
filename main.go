@@ -1,30 +1,6 @@
-//
-// Example:
-// =======
-//
-// daemon stagenet: detached
-//
-// monero-wallet-rpc --detach \
-//  --stagenet \
-// 	--rpc-bind-port 38081 \
-// 	--wallet-file /home/moneropay/wallet \
-// 	--password s3cure \
-// 	--daemon-login kernal:s3cure \
-// 	--rpc-login kernal:s3cure
-//
-// wallet server stagenet: un-detached
-//
-// monero-wallet-rpc \
-// --stagenet \
-// --trusted-daemon \
-// --rpc-bind-port 38383 \
-// --disable-rpc-login \
-// --wallet-file stagenet/wallet_03.bin \
-// --password "" \
-// --log-file stagenet/wallet_03.log \
-// --log-level 1
-
 package main
+
+// This runs against the regtest harness.sh -- adapt for your needs
 
 import (
 	"context"
