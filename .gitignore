@@ -9,3 +9,5 @@ monero-wallet-rpc.log
 stagenet/
 main
 main.mainnet.setup
+go-monero-moneropay/
+go-monero
