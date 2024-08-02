@@ -8,6 +8,8 @@ monero-wallet-cli.log
 monero-wallet-rpc.log
 stagenet/
 main
+go-mpnero
+cmd/ownrpc/generate_wallet
 main.mainnet.setup
 go-monero-moneropay/
 go-monero

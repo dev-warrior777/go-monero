@@ -4,4 +4,6 @@ use (
 	.
 	./cmd/ownrpc/create_wallet
 	./cmd/ownrpc/generate_wallet
+	./cmd/ownrpc/go_fund_generated
+	./cmd/ownrpc/use_generated
 )

@@ -1,9 +1,11 @@
 package main
 
 /////////////////////////////////////////////////////////
-// Create an initial random wallet
+// Create an initial *random* wallet
 //
 // - creates inside the dextest/xmr/wallets/own directory
+// - you can grab the keys for GenerateFromKeys and delete
+//   the two files made.
 /////////////////////////////////////////////////////////
 
 import (
@@ -35,11 +37,17 @@ func main() {
 	}
 
 	// once only!
+	//
 	// .. Or
+	//
 	// delete dextest/xmr/wallets/own/own
 	// delete dextest/xmr/wallets/own/own.keys
+	//
+	// .. for a new random wallet
 	err := own.CreateWallet(ctx, cw_req)
 	if err != nil {
+		// often "Cannot create wallet. Already exists."
+		// You can check harness window 6 *own*
 		fmt.Printf("create wallet: %v\n", err)
 		os.Exit(1)
 	}
@@ -48,6 +56,7 @@ func main() {
 	qk_spend_req := &rpc.QueryKeyRequest{
 		KeyType: "spend_key",
 	}
+
 	qk_resp, err := own.QueryKey(ctx, qk_spend_req)
 	if err != nil {
 		fmt.Printf("query spend key: %v\n", err)
@@ -59,6 +68,7 @@ func main() {
 	qk_view_req := &rpc.QueryKeyRequest{
 		KeyType: "view_key",
 	}
+
 	qk_view_resp, err := own.QueryKey(ctx, qk_view_req)
 	if err != nil {
 		fmt.Printf("query view key: %v\n", err)
@@ -70,12 +80,14 @@ func main() {
 	qk_mnemonic_req := &rpc.QueryKeyRequest{
 		KeyType: "mnemonic",
 	}
+
 	qk_mnemonic_resp, err := own.QueryKey(ctx, qk_mnemonic_req)
 	if err != nil {
 		fmt.Printf("query mnemonic: %v\n", err)
 		own.CloseWallet(ctx)
 		os.Exit(4)
 	}
+
 	fmt.Printf("mnemonic_: %s\n", qk_mnemonic_resp.Key)
 
 	ga_req := &rpc.GetAddressRequest{

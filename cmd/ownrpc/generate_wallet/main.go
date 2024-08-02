@@ -18,6 +18,7 @@ import (
 	"github.com/dev-warrior777/go-monero/rpc"
 )
 
+// Generated from create wallet
 var spendKey = "e42a6f98f92faa98b695e7f05725bc736834280800b154fb145c778c74fbfe01"
 var viewKey = "4ada170972a137d2c2efd1c819d13e5465415677ee28350addc507c28459c900"
 var primaryAddress = "47rDCGk2ndWBySuLHcfFVbEQARPAiVHcq3nbV2FuNggrMTMqDq1QdX4enkxAG1sPRvT1FyXWKtA2F8ZhweZgsCDhNyPmLb3"
@@ -35,8 +36,11 @@ func main() {
 		Client:  &http.Client{ /*default no auth HTTP client*/ },
 	})
 
-	// https://web.getmonero.org/resources/developer-guides/wallet-rpc.html#generate_from_keys
+	// https: //web.getmonero.org/resources/developer-guides/wallet-rpc.html#generate_from_keys
+
+	// Generate from primary address, spend key, view key above
 	gfk_req := &rpc.GenerateFromKeysRequest{
+		// for a real wallet this should be the birthday if known
 		RestoreHeight: 0,
 		Filename:      "own",
 		Address:       primaryAddress,
@@ -44,26 +48,14 @@ func main() {
 		ViewKey:       viewKey,
 		Password:      "",
 	}
+
 	gfk_resp, err := own.GenerateFromKeys(ctx, gfk_req)
 	if err != nil {
 		fmt.Printf("generate from keys: %v\n", err)
-		own.CloseWallet(ctx)
 		os.Exit(1)
 	}
 	fmt.Printf("primary address: %s\n", gfk_resp.Address)
 	fmt.Printf("info: %s\n", gfk_resp.Info)
-
-	rf_req := &rpc.RefreshRequest{
-		StartHeight: 0, // (Optional) The block height from which to start. Real wallet put this in
-	}
-	rf_resp, err := own.Refresh(ctx, rf_req)
-	if err != nil {
-		fmt.Printf("generate from keys: %v\n", err)
-		own.CloseWallet(ctx)
-		os.Exit(1)
-	}
-	fmt.Printf("blocks fetched from monerod: %d\n", rf_resp.BlocksFetched)
-	fmt.Printf("did we get more money? %v\n", rf_resp.ReceivedMoney)
 
 	own.CloseWallet(ctx)
 }

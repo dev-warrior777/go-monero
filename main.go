@@ -57,6 +57,7 @@ func main() {
 		},
 		DecodeAsJson: true,
 	}
+
 	gtxs_resp, err := daemon.GetTransactions(ctx, &gtxs_req)
 	if err != nil {
 		log.Fatal(err)
@@ -68,6 +69,7 @@ func main() {
 		TxAsHex:    gtxs_resp.TxsAsHex[0],
 		DoNotRelay: false,
 	}
+
 	srt_resp, err := daemon.SendRawTransaction(ctx, &srt_req)
 	if err != nil {
 		log.Fatal(err)
@@ -92,6 +94,7 @@ func main() {
 		WalletAddress:  "494aSG3QY1C4PJf7YyDjFc9n2uAuARWSoGQ3hrgPWXtEjgGrYDn2iUw8WJP5Dzm4GuMkY332N9WfbaKfu5tWM3wk8ZeSEC5",
 		StartingNonce:  0,
 	}
+
 	drg_resp, err := client.DaemonRegtestGenerate(ctx, &drg_req)
 	if err != nil {
 		// if not regtest daemon will say:
