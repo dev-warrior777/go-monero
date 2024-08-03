@@ -40,4 +40,4 @@ To make the money spendable go to the **harness** and `./mine-to-bill 11`
 
 Example usage of the generated wallet. Open, Refresh, GetBalance, Close.
 
-To keep the transactions in the generated wallet on the chain start the harness daemon `alpha` with the `keep-fakechain` configuration option.
+To keep the transactions in the generated wallet on the chain start the harness daemon `alpha` with the `keep-fakechain` configuration option - Not implemented yet
