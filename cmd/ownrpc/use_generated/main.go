@@ -26,13 +26,13 @@ func main() {
 	ctx := context.Background()
 
 	own := rpc.New(rpc.Config{
-		// own rpc port
-		Address: "http://127.0.0.1:28884/json_rpc",
+		// own: monero-wallet-rpc server
+		Address: "http://127.0.0.1:28484/json_rpc",
 		Client:  &http.Client{ /*default no auth HTTP client*/ },
 	})
 
 	ow_req := &rpc.OpenWalletRequest{
-		Filename: "own",
+		Filename: "bob",
 		Password: "",
 	}
 
