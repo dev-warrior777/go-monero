@@ -1,4 +1,4 @@
-go 1.21.10
+go 1.22.5
 
 use (
 	.
@@ -6,4 +6,6 @@ use (
 	./cmd/ownrpc/generate_wallet
 	./cmd/ownrpc/go_fund_generated
 	./cmd/ownrpc/use_generated
+	./cmd/stagenet/gen_alice
+	./cmd/stagenet/use_alice
 )

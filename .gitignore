@@ -6,7 +6,7 @@ kill_daemons.sh
 stagenet_wallet_details.txt
 monero-wallet-cli.log
 monero-wallet-rpc.log
-stagenet/
+stagenet_old/
 main
 go-mpnero
 cmd/ownrpc/generate_wallet
