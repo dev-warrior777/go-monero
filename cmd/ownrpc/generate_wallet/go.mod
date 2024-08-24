@@ -1,3 +1,3 @@
 module github.com/dev-warrior/go-monero/cmd/ownrpc/generate_wallet
 
-go 1.21.10
+go 1.19
