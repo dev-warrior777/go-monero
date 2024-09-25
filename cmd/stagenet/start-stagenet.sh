@@ -2,7 +2,7 @@
 # Development stagenet startup
 ################################################################################
 
-export PATH=$PATH:~/monero-x86_64-linux-gnu-v0.18.3.3
+export PATH=$PATH:~/monero-x86_64-linux-gnu-v0.18.3.4
 
 ALICE_BIND_PORT=38083
 BETA_NODE_RPC_PORT=38081

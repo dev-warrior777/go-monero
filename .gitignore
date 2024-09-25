@@ -1,5 +1,6 @@
 #dev
 .vscode/
+go.work
 curltest.sh
 is_daemons.sh
 kill_daemons.sh
@@ -8,7 +9,6 @@ monero-wallet-cli.log
 monero-wallet-rpc.log
 stagenet_old/
 main
-go-mpnero
 cmd/ownrpc/generate_wallet
 main.mainnet.setup
 go-monero-moneropay/

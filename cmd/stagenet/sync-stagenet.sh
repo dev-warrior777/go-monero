@@ -2,7 +2,7 @@
 # Development stagenet daemon startup sync
 ################################################################################
 
-export PATH=$PATH:~/monero-x86_64-linux-gnu-v0.18.3.3
+export PATH=$PATH:~/monero-x86_64-linux-gnu-v0.18.3.4
 
 # CURRENT HEIGHT: height": 1,668,9xx -- AUG 18
 
