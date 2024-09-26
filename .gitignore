@@ -1,8 +1,8 @@
 #dev
+
 .vscode/
 go.work
 monero-wallet-cli.log
 monero-wallet-rpc.log
 main
 main.mainnet.setup
-#go-monero
