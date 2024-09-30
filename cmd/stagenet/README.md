@@ -22,7 +22,7 @@ Build & run `gen_alice.go`
 
 ![alt text](image.png)
 
-### Fund wallet
+### Fund alice wallet
 
 55ps81tfB2JTdbHXYVJuZVeYCYagjLjBPgHtH6DRHXZ3eMLLtE7FECTMmGzJmFVqPz75KsVcVdGMfe is **pre-funded**
 
@@ -37,3 +37,18 @@ export PATH to monerod.
 heavy on the CPU!
 
 `monerod --stagenet stop_mining`
+
+## Added
+
+`xmrswap-stagenet.sh`
+
+Starts 1 monerod and 3 rpc servers for bob, alice & extraxmr
+
+`gen_bob`
+`gen_extraxmr`
+
+tool to create a known bob, extraxmr wallets from keys. extraxmr is not funded
+
+So you can generate these with `generatefromkeys` in your own code
+
+![stagenet test wallets](image-1.png)
