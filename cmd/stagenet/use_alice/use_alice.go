@@ -31,7 +31,7 @@ func main() {
 
 	aliceRpc := rpc.New(rpc.Config{
 		// Alice: monero-wallet-rpc server
-		Address: "http://127.0.0.1:38083/json_rpc",
+		Address: "http://127.0.0.1:38284/json_rpc",
 		Client:  &http.Client{ /*default no auth HTTP client*/ },
 	})
 
