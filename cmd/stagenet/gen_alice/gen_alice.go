@@ -53,5 +53,39 @@ func main() {
 	fmt.Printf("primary address: %s\n", gfk_resp.Address)
 	fmt.Printf("info: %s\n", gfk_resp.Info)
 
+	rf_req := &rpc.RefreshRequest{
+		// (Optional) The block height from which to start.
+		// Real wallet put wallet birthday if you know it
+		StartHeight: 1600000 - 1,
+	}
+
+	rf_resp, err := aliceRpc.Refresh(ctx, rf_req)
+	if err != nil {
+		fmt.Printf("refresh: %v\n", err)
+		aliceRpc.CloseWallet(ctx)
+		os.Exit(2)
+	}
+	fmt.Println("REFRESHED!")
+	fmt.Printf("blocks fetched from monerod: %d\n", rf_resp.BlocksFetched)
+	fmt.Printf("did we get money? %v\n", rf_resp.ReceivedMoney)
+
+	gb_req := &rpc.GetBalanceRequest{
+		AccountIndex: 0,
+	}
+
+	gb_resp, err := aliceRpc.GetBalance(ctx, gb_req)
+	if err != nil {
+		fmt.Printf("getbalance: %v\n", err)
+		aliceRpc.CloseWallet(ctx)
+		os.Exit(2)
+	}
+	fmt.Printf("balance: %d\n", gb_resp.Balance)
+	fmt.Printf("unlocked balance: %d\n", gb_resp.UnlockedBalance)
+
+	//////////////////////
+	// Use the wallet here
+	//////////////////////
+	fmt.Println("DO STUFF!")
+
 	aliceRpc.CloseWallet(ctx)
 }

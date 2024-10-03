@@ -38,7 +38,7 @@ heavy on the CPU!
 
 `monerod --stagenet stop_mining`
 
-## Added
+## Added I
 
 `xmrswap-stagenet.sh`
 
@@ -52,3 +52,12 @@ tool to create a known bob, extraxmr wallets from keys. extraxmr is not funded
 So you can generate these with `generatefromkeys` in your own code
 
 ![stagenet test wallets](image-1.png)
+
+## Added II
+
+Two scripts to run `monerod` and 3x `monero-wallet-rpc` wallet servers for dex testnet/stagenet PoC XMR Swap code.
+
+- `xmrswap-stagenet-gen` run when generating wallets.
+- `xmrswap-stagenet-run` run when using dex PoC XMR Swap codewith pre-generated wallets.
+
+You can also fund the wallets after starting these scripts by mining on stagenet (see above) and mine many blocks fast as the `monerod` is started with the --fixed-difficulty 1 flag to enable this
