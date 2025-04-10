@@ -8,8 +8,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/dev-warrior777/go-monero/old_rpc"
-	"github.com/dev-warrior777/go-monero/rpc"
+	"github.com/bisoncraft/go-monero/old_rpc"
+	"github.com/bisoncraft/go-monero/rpc"
 )
 
 /////////////////////////

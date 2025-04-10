@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/dev-warrior777/go-monero/old_rpc/json"
+	"github.com/bisoncraft/go-monero/old_rpc/json"
 )
 
 type Client struct {

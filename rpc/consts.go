@@ -3,7 +3,7 @@ package rpc
 import (
 	"fmt"
 
-	"github.com/dev-warrior777/go-monero/rpc/json2"
+	"github.com/bisoncraft/go-monero/rpc/json2"
 )
 
 // H is a helper map shortcut.

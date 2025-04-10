@@ -14,7 +14,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/dev-warrior777/go-monero/rpc"
+	"github.com/bisoncraft/go-monero/rpc"
 )
 
 /////////////////////////
