@@ -89,3 +89,28 @@ type Entry struct {
 type KeyImages struct {
 	KeyImages []string `json:"key_images"`
 }
+
+type BlockHeader struct {
+	BlockSize                 uint64 `json:"block_size"`
+	BlockWeight               uint64 `json:"block_weight"`
+	CumulativeDifficulty      uint64 `json:"cumulative_difficulty"`
+	CumulativeDifficultyTop64 uint64 `json:"cumulative_difficulty_top64"`
+	Depth                     uint64 `json:"depth"`
+	Difficulty                uint64 `json:"difficulty"`
+	DifficultyTop64           uint64 `json:"difficulty_top64"`
+	Hash                      string `json:"hash"`
+	Height                    uint64 `json:"height"`
+	LongTermWeight            uint64 `json:"long_term_weight"`
+	MajorVersion              uint64 `json:"major_version"`
+	MinerTxHash               string `json:"miner_tx_hash"`
+	MinorVersion              uint64 `json:"minor_version"`
+	Nonce                     uint64 `json:"nonce"`
+	NumTxes                   uint64 `json:"num_txes"`
+	OrphanStatus              bool   `json:"orphan_status"`
+	PowHash                   string `json:"pow_hash"`
+	PrevHash                  string `json:"prev_hash"`
+	Reward                    uint64 `json:"reward"`
+	Timestamp                 uint64 `json:"timestamp"`
+	WideCumulativeDifficulty  string `json:"wide_cumulative_difficulty"`
+	WideDifficulty            string `json:"wide_difficulty"`
+}
