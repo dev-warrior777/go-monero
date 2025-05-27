@@ -24,7 +24,7 @@ type DemonGetInfoResponse struct {
 	Mainnet                     bool   `json:"mainnet"`
 	NetType                     string `json:"nettype"`
 	Offline                     bool   `json:"offline"`
-	OutgoingConnectionsCount    int64  `json:"outgoing_connections_count"`
+	OutgoingConnectionsCount    uint64 `json:"outgoing_connections_count"`
 	Restricted                  bool   `json:"restricted"`
 	RpcConnectionsCount         uint64 `json:"rpc_connections_count"`
 	Stagenet                    bool   `json:"stagenet"`
