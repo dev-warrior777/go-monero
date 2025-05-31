@@ -26,8 +26,8 @@ type ValidateAddressResponse struct {
 	// Specifies which of the three Monero networks (mainnet, stagenet, and testnet) the address belongs to.
 	Nettype string `json:"nettype"`
 
-	// True if the address is OpenAlias-formatted.
-	OpenaliasAddress bool `json:"openalias_address"`
+	// If the address is OpenAlias it will be returned here
+	OpenaliasAddress string `json:"openalias_address"`
 }
 
 // Analyzes a string to determine whether it is a valid monero wallet address and returns the result and the address specifications.
