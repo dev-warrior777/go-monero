@@ -13,8 +13,8 @@ type DaemonGetFeeEstimateResponse struct {
 }
 
 // Return a fee estimate from the daemon
-func (c *Client) DaemonGetFeeEstimate(ctx context.Context) (*DaemonGetBlockCountResponse, error) {
-	resp := &DaemonGetBlockCountResponse{}
+func (c *Client) DaemonGetFeeEstimate(ctx context.Context) (*DaemonGetFeeEstimateResponse, error) {
+	resp := &DaemonGetFeeEstimateResponse{}
 	err := c.Do(ctx, "get_fee_estimate", nil, resp)
 	return resp, err
 }
