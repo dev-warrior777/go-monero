@@ -12,6 +12,9 @@ type TransferRequest struct {
 	// (Optional) Transfer from this set of subaddresses. (Defaults to empty - all indices)
 	SubaddrIndices []uint64 `json:"subaddr_indices,omitempty"`
 
+	// (Optional) Subtract fee from output(s) - Choose which destinations to fund the tx fee from instead of the change output.
+	SubtractFeeFromOutputs []uint64 `json:"subtract_fee_from_outputs,omitempty"`
+
 	// Set a priority for the transaction. Accepted Values are: 0-3 for: default, unimportant, normal, elevated, priority.
 	Priority Priority `json:"priority"`
 

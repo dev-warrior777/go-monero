@@ -8,6 +8,9 @@ type CreateAddressRequest struct {
 
 	// (Optional) Label for the new address.
 	Label string `json:"label,omitempty"`
+
+	// (Optional) Number of addresses to create (Defaults to 1).
+	Count uint64 `json:"count"`
 }
 
 type CreateAddressResponse struct {
@@ -16,6 +19,12 @@ type CreateAddressResponse struct {
 
 	// Index of the new address under the input account.
 	AddressIndex uint64 `json:"address_index"`
+
+	// List of (count) address indeces
+	AddressIndeces []uint64 `json:"address_indices"`
+
+	// List of (count) addresses
+	Addresses []string `json:"addresses"`
 }
 
 // Create a new address for an account. Optionally, label the new address.
